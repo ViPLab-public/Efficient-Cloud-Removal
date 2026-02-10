@@ -1,12 +1,10 @@
 # UNet Model Inference System
 
-This is an image segmentation inference system based on LightUNet. The model architecture is compiled and protected, users can only perform inference through the provided interface.
+This is an image segmentation inference system based on Efficient UNet. Users can perform inference through the provided interface.
 
 ## Features
 
-- Pre-trained LightUNet model
-- Simple and easy-to-use inference interface
-- Compiled model architecture for code protection
+- Pre-trained Efficient UNet model
 - Customizable path configuration
 
 ## Requirements
@@ -97,7 +95,7 @@ Adjustable parameters in `config.py`:
 
 ## Notes
 
-1. Model architecture is compiled as `.pyd` files (Windows) or `.so` files (Linux), source code is not visible
+1. Model architecture is compiled as `.pyd` files (Windows), source code is not visible
 2. Can only configure and use through `config.py` and `test.py`
 3. Ensure input images are in correct format (supports common image formats)
 4. Mask files should be named as `{original_image_name}_binary.tif`
