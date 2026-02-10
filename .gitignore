@@ -43,3 +43,7 @@ inference_utils.py
 inference.py
 
 backup_source/
+
+# 編譯腳本（本地使用，不需上傳）
+compile_and_package.bat
+compile_and_package.sh
