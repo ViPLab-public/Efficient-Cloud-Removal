@@ -104,9 +104,7 @@ Adjustable parameters in `config.py`:
 
 ## System Requirements
 
-- OS: Windows 10/11, Linux, macOS
 - GPU: NVIDIA GPU with CUDA support (recommended)
-- RAM: >= 8GB
 - Python: >= 3.8
 
 ## License
