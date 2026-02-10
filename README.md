@@ -1,11 +1,62 @@
-# UNet Model Inference System
+# Efficient-Cloud-Removal (Inference-Only) — Cloud Segmentation
 
-This is an image segmentation inference system based on Efficient UNet. Users can perform inference through the provided interface.
+This repository provides an **inference-only** implementation for our paper titled **“Efficient-Cloud-Removal”**.  
+Although the paper title contains *cloud removal*, the **actual task studied in the paper and implemented here is cloud segmentation** (i.e., predicting a cloud mask).  
+The naming is kept consistent with the paper title for indexing and citation purposes.
 
-## Features
+>  Task in this repo: **Cloud Segmentation (Binary Mask Prediction)**  
+>  Not included: cloud-free image reconstruction / inpainting / restoration
 
-- Pre-trained Efficient UNet model
-- Customizable path configuration
+---
+
+## 1. Overview
+
+We provide a lightweight inference pipeline based on a UNet-style model to produce a **cloud mask** from an input image.
+
+**Input:** RGB image (satellite/remote sensing image)  
+**Output:** predicted mask (binary map)
+
+Typical use cases:
+- Cloud coverage estimation
+- Mask-based preprocessing for downstream remote sensing analytics
+- Filtering or selecting cloud-free regions
+
+## 2. Project Structure
+
+```
+
+│
+├── config.py              # Configuration file (modifiable)
+├── test.py                # Inference interface (modifiable)
+├── light_unet-v2.ckpt     # Model weights
+├── requirements.txt       # Dependencies list
+│
+├── unet_new/              # Compiled model modules
+│   ├── __init__.py
+│   ├── lightunet_model.pyd   # Compiled model architecture (Windows)
+│   └── unet_parts.pyd        # Compiled model components (Windows)
+│
+└── test/                  # Test data directory
+    ├── img/               # Input images
+    ├── mask/              # Ground truth masks
+    └── output/            # Output results
+```
+
+> **Why `.pyd`?**  
+> Per project policy requirements, core implementation details are distributed as compiled Python extensions (`.pyd`) rather than plain source code. This repository is intended for **reproducible inference and evaluation**, not for code-level modification of the internal model.
+
+## Parameters
+
+Adjustable parameters in `config.py`:
+
+- `MODEL_CHECKPOINT`: Model checkpoint file path
+- `IMAGE_DIR`: Input images directory
+- `MASK_DIR`: Ground truth masks directory (for evaluation)
+- `OUTPUT_DIR`: Output results directory
+- `BATCH_SIZE`: Batch size (default: 1)
+- `NUM_WORKERS`: Number of data loading workers (default: 4)
+- `N_CHANNELS`: Number of input image channels (default: 3)
+- `N_CLASSES`: Number of output classes (default: 1)
 
 ## Requirements
 
@@ -22,18 +73,12 @@ numpy
 
 ## Installation
 
-1. Clone this repository
-```bash
-git clone <your-repo-url>
-cd githubfinal
-```
-
-2. Install dependencies
+1. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## 3. Usage
 
 ### 1. Configure Paths
 
@@ -57,41 +102,28 @@ python test.py
 
 ### 3. View Results
 
-Inference results will be saved in the directory specified by `OUTPUT_DIR`.
+Inference results will be saved in the directory specified by `OUTPUT_DIR`. 
 
-## Project Structure
+The model produces a cloud mask of the following formats : Binary mask after thresholding (.png)
 
-```
-githubfinal/
-│
-├── config.py              # Configuration file (modifiable)
-├── test.py                # Inference interface (modifiable)
-├── light_unet-v2.ckpt     # Model weights
-├── requirements.txt       # Dependencies list
-│
-├── unet_new/              # Compiled model modules
-│   ├── __init__.py
-│   ├── lightunet_model.pyd   # Compiled model architecture (Windows)
-│   └── unet_parts.pyd        # Compiled model components (Windows)
-│
-└── test/                  # Test data directory
-    ├── img/               # Input images
-    ├── mask/              # Ground truth masks
-    └── output/            # Output results
-```
+## 4. Reproducibility / Modifiability
+This repository is inference-only.
 
-## Parameters
+The compiled .pyd modules are platform- and Python-version-specific.
 
-Adjustable parameters in `config.py`:
+Training code, internal implementation details, and model internals are not publicly released.
 
-- `MODEL_CHECKPOINT`: Model checkpoint file path
-- `IMAGE_DIR`: Input images directory
-- `MASK_DIR`: Ground truth masks directory (for evaluation)
-- `OUTPUT_DIR`: Output results directory
-- `BATCH_SIZE`: Batch size (default: 1)
-- `NUM_WORKERS`: Number of data loading workers (default: 4)
-- `N_CHANNELS`: Number of input image channels (default: 3)
-- `N_CLASSES`: Number of output classes (default: 1)
+## 5. Paper & Citation
+If you use this repository or the provided checkpoint in your research, please cite our paper:
+
+Efficient Cloud Removal for Remote Sensing Data Transmission via Model Compression and Sparse Accelerator Design
+
+@article{efficient_cloud_removal,
+  title     = {Efficient Cloud Removal for Remote Sensing Data Transmission via Model Compression and Sparse Accelerator Design},
+  author    = {Chun-Fu Chen, Chun-Han Chen, and Pei-Jun Lee},
+  year      = {2026},
+  journal   = {IEEE JSTARS}
+}
 
 ## Notes
 
@@ -100,14 +132,15 @@ Adjustable parameters in `config.py`:
 3. Ensure input images are in correct format (supports common image formats)
 4. Mask files should be named as `{original_image_name}_binary.tif`
 
-## System Requirements
-
-- GPU: NVIDIA GPU with CUDA support (recommended)
-- Python: >= 3.8
-
 ## License
 
-This project is for academic and research purposes only. Commercial use is prohibited without permission.
+Academic and research use only.
+
+Commercial use is prohibited without explicit permission.
+
+Redistribution of the compiled binaries and checkpoint should follow the project policy.
+
+If you are unsure whether your use case is allowed, please contact the authors.
 
 ## Contact
 
@@ -117,14 +150,8 @@ For questions or suggestions, please contact the project maintainer.
 
 ## FAQ
 
-### Q: How to change model weights?
-A: Modify the `MODEL_CHECKPOINT` path in `config.py`.
+### Q1: Why is the repo name “Cloud-Removal” but the task is segmentation?
+The repository name matches the paper title for citation consistency. The actual implemented task is cloud segmentation, as described in the paper.
 
-### Q: What image formats are supported?
-A: Supports common formats like PNG, JPG, JPEG, TIF, TIFF, etc.
-
-### Q: How to run on CPU?
-A: Modify `ACCELERATOR = "cpu"` in `config.py`.
-
-### Q: What if I run out of memory?
-A: Adjust `BATCH_SIZE` to a smaller value (e.g., 1) in `config.py`.
+### Q2: Can I train / fine-tune the model?
+Not with this repository. This repo is inference-only by design.
