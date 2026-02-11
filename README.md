@@ -44,6 +44,7 @@ Typical use cases:
 
 > **Why `.pyd`?**  
 > Per project policy requirements, core implementation details are distributed as compiled Python extensions (`.pyd`) rather than plain source code in this stage.
+> 
 > The source code will be uploaded gradually in the future. (coming soon ...)
 
 ## Parameters
