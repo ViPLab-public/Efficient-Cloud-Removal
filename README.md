@@ -131,6 +131,7 @@ Efficient Cloud Removal for Remote Sensing Data Transmission via Model Compressi
 2. Can only configure and use through `config.py` and `test.py`
 3. Ensure input images are in correct format (supports common image formats)
 4. Mask files should be named as `{original_image_name}_binary.tif`
+5. The code will be organized and uploaded to the open source gradually. (coming soon ...)
 
 ## License
 
