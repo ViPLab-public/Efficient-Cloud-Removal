@@ -120,15 +120,10 @@ If you use this repository or the provided checkpoint in your research, please c
 Efficient Cloud Removal for Remote Sensing Data Transmission via Model Compression and Sparse Accelerator Design
 
 @article{efficient_cloud_removal,
-
-  title     = {Efficient Cloud Removal for Remote Sensing Data Transmission via Model Compression and Sparse Accelerator Design},
-  
-  author    = {Chun-Fu Chen, Chun-Han Chen, and Pei-Jun Lee},
-  
-  year      = {2026},
-  
+  title     = {Efficient Cloud Removal for Remote Sensing Data Transmission via Model Compression and Sparse Accelerator Design},  
+  author    = {Chun-Fu Chen, Chun-Han Chen, and Pei-Jun Lee},  
+  year      = {2026},  
   journal   = {IEEE JSTARS}
-  
 }
 
 ## Notes
