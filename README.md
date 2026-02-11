@@ -44,6 +44,7 @@ Typical use cases:
 
 > **Why `.pyd`?**  
 > Per project policy requirements, core implementation details are distributed as compiled Python extensions (`.pyd`) rather than plain source code. This repository is intended for **reproducible inference and evaluation**, not for code-level modification of the internal model.
+> The source code will be uploaded gradually in the future. (coming soon ...)
 
 ## Parameters
 
